@@ -1,5 +1,5 @@
 import { PortsActions } from '.'
 
-export const thunkAction = () => async dispatch => {
-  dispatch(PortsActions.initMap({ defaultCenter: 1 }))
+export const thunkAction = (initValue: number) => async dispatch => {
+  dispatch(PortsActions.initMap({ count: initValue }))
 }

@@ -1,14 +1,16 @@
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 import { connect, ConnectedProps } from 'react-redux'
 import React, { FC, useEffect } from 'react'
+import { PortsActions } from './store/actions'
 import { RootState } from './interfaces/store/reducers'
 import { thunkAction } from './store/actions/thunks'
 
 const mapStateToProps = (state: RootState) => ({
-  defaultCenter: state?.ports?.defaultCenter,
+  count: state?.ports?.count,
 })
 
 const mapDispatchToProps = {
+  add: PortsActions.add,
   thunkAction,
 }
 
@@ -54,13 +56,18 @@ const data = [
   },
 ]
 
-const App: FC<AppProps> = ({ thunkAction, defaultCenter }) => {
+const App: FC<AppProps> = ({ thunkAction, count, add }) => {
   useEffect(() => {
-    thunkAction()
-  })
+    thunkAction(5)
+  }, [])
   return (
     <>
-      <div>{defaultCenter}</div>
+      <div>
+        This comes from the state {'->'} {count}
+      </div>
+      <div>
+        This updates the state {'->'} <button onClick={add}>Add 1</button>
+      </div>
       <LineChart
         width={730}
         height={250}
@@ -75,6 +82,7 @@ const App: FC<AppProps> = ({ thunkAction, defaultCenter }) => {
         <Line type="monotone" dataKey="pv" stroke="#8884d8" />
         <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
       </LineChart>
+      <div>And this is a nice D3 graph, totally unrelated</div>
     </>
   )
 }

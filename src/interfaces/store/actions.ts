@@ -11,5 +11,6 @@ export interface ActionWithPayload<T extends string, P> extends Action<T> {
 }
 
 export enum PortsTypes {
-  INIT_MAP = 'store.port.map.init',
+  ADD = 'store.port.add',
+  INIT_MAP = 'store.port.init',
 }
